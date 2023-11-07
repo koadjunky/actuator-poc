@@ -4,6 +4,7 @@ import org.springframework.boot.availability.AvailabilityChangeEvent;
 import org.springframework.boot.availability.LivenessState;
 import org.springframework.boot.availability.ReadinessState;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,23 +17,23 @@ public class AvailabilityController {
         this.publisher = publisher;
     }
 
-    @PostMapping("/api/liveness/up")
-    public void setLivenessUp() {
-        AvailabilityChangeEvent.publish(publisher, this, LivenessState.CORRECT);
+    @PostMapping("/api/liveness/up/{id}")
+    public void setLivenessUp(@PathVariable  String id) {
+        AvailabilityChangeEvent.publish(publisher, id, LivenessState.CORRECT);
     }
 
-    @PostMapping("/api/liveness/down")
-    public void setLivenessDown() {
-        AvailabilityChangeEvent.publish(publisher, this, LivenessState.BROKEN);
+    @PostMapping("/api/liveness/down/{id}")
+    public void setLivenessDown(@PathVariable  String id) {
+        AvailabilityChangeEvent.publish(publisher, id, LivenessState.BROKEN);
     }
 
-    @PostMapping("/api/readiness/up")
-    public void setReadinessUp() {
-        AvailabilityChangeEvent.publish(publisher, this, ReadinessState.ACCEPTING_TRAFFIC);
+    @PostMapping("/api/readiness/up/{up}")
+    public void setReadinessUp(@PathVariable  String id) {
+        AvailabilityChangeEvent.publish(publisher, id, ReadinessState.ACCEPTING_TRAFFIC);
     }
 
-    @PostMapping("/api/readiness/down")
-    public void setReadinessDown() {
-        AvailabilityChangeEvent.publish(publisher, this, ReadinessState.REFUSING_TRAFFIC);
+    @PostMapping("/api/readiness/down/{up}")
+    public void setReadinessDown(@PathVariable  String id) {
+        AvailabilityChangeEvent.publish(publisher, id, ReadinessState.REFUSING_TRAFFIC);
     }
 }
