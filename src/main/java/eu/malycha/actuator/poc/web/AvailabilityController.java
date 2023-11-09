@@ -27,12 +27,12 @@ public class AvailabilityController {
         AvailabilityChangeEvent.publish(publisher, id, LivenessState.BROKEN);
     }
 
-    @PostMapping("/api/readiness/up/{up}")
+    @PostMapping("/api/readiness/up/{id}")
     public void setReadinessUp(@PathVariable  String id) {
         AvailabilityChangeEvent.publish(publisher, id, ReadinessState.ACCEPTING_TRAFFIC);
     }
 
-    @PostMapping("/api/readiness/down/{up}")
+    @PostMapping("/api/readiness/down/{id}")
     public void setReadinessDown(@PathVariable  String id) {
         AvailabilityChangeEvent.publish(publisher, id, ReadinessState.REFUSING_TRAFFIC);
     }
